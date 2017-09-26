@@ -1,13 +1,16 @@
 package com.smartcity.db.model.resource;
 
+import com.mysql.fabric.Response;
 import com.smartcity.db.model.Users;
 import com.smartcity.db.model.repository.interfaces.IUsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
 
 @RestController
+@EnableWebMvc
 @RequestMapping(value = "/rest/users")
 public class UsersResource {
 
@@ -19,10 +22,10 @@ public class UsersResource {
         return iUsersRepository.findAll();
     }
 
-    @PostMapping(value = "/load")
-    public List<Users> persist(@RequestBody final Users users) {
-        iUsersRepository.save(users);
-        return iUsersRepository.findAll();
+    @RequestMapping(method = RequestMethod.POST, value = "/add")
+    public String persist(@RequestBody Users users) {
+        //iUsersRepository.save(users);
+        return "Usuario Creado correctamente";
     }
 
 

@@ -1,6 +1,5 @@
 package com.smartcity.db.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -10,14 +9,15 @@ public class Users {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
     private Integer id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "team_name")
-    private String teamName;
-    @Column(name = "salary")
-    private Integer salary;
+    private String lastname;
+    private String email;
+    private String password;
+    private String type;
+    private String phone;
+    private boolean state;
+
 
     public Users() {
     }
@@ -38,19 +38,65 @@ public class Users {
         this.name = name;
     }
 
-    public String getTeamName() {
-        return teamName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public Integer getSalary() {
-        return salary;
+    public String getEmail() {
+        return email;
     }
 
-    public void setSalary(Integer salary) {
-        this.salary = salary;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", type='" + type + '\'' +
+                ", phone='" + phone + '\'' +
+                ", state=" + state +
+                '}';
     }
 }

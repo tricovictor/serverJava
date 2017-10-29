@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping(value = "/rest/municipalities")
 public class MunicipalitiesController {
@@ -18,10 +19,10 @@ public class MunicipalitiesController {
     public List<Municipality> getAll() { return iMunicipalities.findAll();
     }
 
-    @PostMapping(value = "/load")
-    public List<Municipality> persist(@RequestBody final Municipality municipality) {
+    @RequestMapping(method = RequestMethod.POST, value = "/add")
+    public String persist(@RequestBody Municipality municipality) {
         iMunicipalities.save(municipality);
-        return iMunicipalities.findAll();
+        return "Usuario Creado correctamente";
     }
 
 }

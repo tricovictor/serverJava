@@ -1,7 +1,7 @@
 package com.smartcity.db.model.repository.interfaces;
 
-import com.smartcity.db.model.Scores;
+import com.smartcity.db.model.Score;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IScoresRepository extends JpaRepository<Scores, Integer> {
+public interface IScores extends JpaRepository<Score, Integer> {
 }

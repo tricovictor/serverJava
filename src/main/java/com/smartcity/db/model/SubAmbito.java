@@ -5,14 +5,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class SubAmbitos {
+public class SubAmbito {
     @Id
     @GeneratedValue
     private int id;
     private String name;
     private int ambito_id;
 
-    public SubAmbitos() {
+    public SubAmbito() {
     }
 
     public int getId() {
@@ -41,7 +41,7 @@ public class SubAmbitos {
 
     @Override
     public String toString() {
-        return "SubAmbitos{" +
+        return "SubAmbito{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", ambito_id=" + ambito_id +

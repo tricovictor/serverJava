@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.security.Timestamp;
 
 @Entity
-public class Surveys {
+public class Survey {
     @Id
     @GeneratedValue
     private int id;
@@ -16,7 +16,7 @@ public class Surveys {
     private int user_id;
     private int municipality_id;
 
-    public Surveys() {
+    public Survey() {
     }
 
     public int getId() {
@@ -69,7 +69,7 @@ public class Surveys {
 
     @Override
     public String toString() {
-        return "Surveys{" +
+        return "Survey{" +
                 "id=" + id +
                 ", initialdate=" + initialdate +
                 ", finaldate=" + finaldate +

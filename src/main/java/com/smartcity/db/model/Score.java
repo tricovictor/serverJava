@@ -6,14 +6,14 @@ import javax.persistence.Id;
 import java.security.Timestamp;
 
 @Entity
-public class Scores {
+public class Score {
     @Id
     @GeneratedValue
     private int id;
     private int surveys_id;
     private int level_id;
 
-    public Scores() {
+    public Score() {
     }
 
     public int getId() {
@@ -42,7 +42,7 @@ public class Scores {
 
     @Override
     public String toString() {
-        return "Scores{" +
+        return "Score{" +
                 "id=" + id +
                 ", surveys_id=" + surveys_id +
                 ", level_id=" + level_id +

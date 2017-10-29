@@ -1,7 +1,7 @@
 package com.smartcity.db.model.repository.interfaces;
 
-import com.smartcity.db.model.Levels;
+import com.smartcity.db.model.Level;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface ILevelsRepository extends JpaRepository<Levels, Integer> {
+public interface ILevels extends JpaRepository<Level, Integer> {
 }

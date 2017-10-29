@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.security.Timestamp;
 
 @Entity
-public class Levels {
+public class Level {
 
     @Id
     @GeneratedValue
@@ -16,7 +16,7 @@ public class Levels {
     private int degree_id;
     private boolean selected;
 
-    public Levels() {
+    public Level() {
     }
 
     public int getId() {
@@ -61,7 +61,7 @@ public class Levels {
 
     @Override
     public String toString() {
-        return "Levels{" +
+        return "Level{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", value=" + value +

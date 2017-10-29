@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue
@@ -19,7 +19,7 @@ public class Users {
     private boolean state;
 
 
-    public Users() {
+    public User() {
     }
 
     public Integer getId() {
@@ -84,19 +84,5 @@ public class Users {
 
     public void setState(boolean state) {
         this.state = state;
-    }
-
-    @Override
-    public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", type='" + type + '\'' +
-                ", phone='" + phone + '\'' +
-                ", state=" + state +
-                '}';
     }
 }

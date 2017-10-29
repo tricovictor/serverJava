@@ -6,22 +6,21 @@ import javax.persistence.Id;
 import java.security.Timestamp;
 
 @Entity
-public class Degrees {
+public class Ambito {
 
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     private String name;
-    private int subambito_id;
 
-    public Degrees() {
+    public Ambito() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -33,20 +32,11 @@ public class Degrees {
         this.name = name;
     }
 
-    public int getSubambito_id() {
-        return subambito_id;
-    }
-
-    public void setSubambito_id(int subambito_id) {
-        this.subambito_id = subambito_id;
-    }
-
     @Override
     public String toString() {
-        return "Degrees{" +
+        return "Ambito{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", subambito_id=" + subambito_id +
                 '}';
     }
 }

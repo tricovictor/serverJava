@@ -7,7 +7,7 @@ import java.security.Timestamp;
 import java.sql.Time;
 
 @Entity
-public class Municipalities {
+public class Municipality {
     @Id
     @GeneratedValue
     private int id;
@@ -22,7 +22,7 @@ public class Municipalities {
     private String website;
     private int department_id;
 
-    public Municipalities() {
+    public Municipality() {
     }
 
     public int getId() {
@@ -115,7 +115,7 @@ public class Municipalities {
 
     @Override
     public String toString() {
-        return "Municipalities{" +
+        return "Municipality{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", idioms='" + idioms + '\'' +

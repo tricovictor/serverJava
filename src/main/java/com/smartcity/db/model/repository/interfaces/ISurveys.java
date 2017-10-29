@@ -1,7 +1,7 @@
 package com.smartcity.db.model.repository.interfaces;
 
-import com.smartcity.db.model.Degrees;
+import com.smartcity.db.model.Survey;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IDegreesRepository extends JpaRepository<Degrees, Integer> {
+public interface ISurveys extends JpaRepository<Survey, Integer> {
 }

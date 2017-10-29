@@ -6,13 +6,13 @@ import javax.persistence.Id;
 import java.security.Timestamp;
 
 @Entity
-public class Departments {
+public class Department {
     @Id
     @GeneratedValue
     private int id;
     private String name;
 
-    public Departments() {
+    public Department() {
     }
 
     public int getId() {
@@ -33,7 +33,7 @@ public class Departments {
 
     @Override
     public String toString() {
-        return "Departments{" +
+        return "Department{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';

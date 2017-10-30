@@ -3,8 +3,11 @@ package com.smartcity.db.model.resource;
 
 import com.smartcity.db.model.Degree;
 import com.smartcity.db.model.Level;
+import com.smartcity.db.model.Response;
 import com.smartcity.db.model.repository.interfaces.ILevels;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.PathParam;
@@ -16,22 +19,26 @@ public class LevelsController {
     @Autowired
     ILevels iLevels;
 
+    Response response;
+
     @GetMapping(value = "/all")
     public List<Level> getAll() { return iLevels.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public String persist(@RequestBody Level level) {
+    public ResponseEntity<Response> persist(@RequestBody Level level) {
         iLevels.save(level);
-        return "{\"response\": \"Nivel Creado correctamente\"}";
+        response.setResponse("Nivel Creado correctamente");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")
-    public String updateLevel(@RequestBody Level levels) {
+    public ResponseEntity<Response> updateLevel(@RequestBody Level levels) {
         Level level = iLevels.findOne(levels.getId());
         level.setName(levels.getName());
         iLevels.save(level);
-        return "{\"response\": \"Nivel modificado correctamente\"}";
+        response.setResponse("Nivel actualizado");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @GetMapping(value = "/getLevelById")

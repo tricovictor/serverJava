@@ -1,9 +1,12 @@
 package com.smartcity.db.model.resource;
 
 import com.smartcity.db.model.Ambito;
+import com.smartcity.db.model.Response;
 import com.smartcity.db.model.SubAmbito;
 import com.smartcity.db.model.repository.interfaces.ISubAmbitos;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.PathParam;
@@ -18,37 +21,43 @@ public class SubAmbitosController {
     @Autowired
     ISubAmbitos iSubAmbitos;
 
+    Response response;
+
     @GetMapping(value = "/all")
     public List<SubAmbito> getAll() {
         return iSubAmbitos.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public String persist(@RequestBody SubAmbito subAmbito) {
+    public ResponseEntity<Response> persist(@RequestBody SubAmbito subAmbito) {
         iSubAmbitos.save(subAmbito);
-        return "{\"response\": \"SubAmbito Creado correctamente\"}";
+        response.setResponse("SubAmbito Creado correctamente");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")
-    public String updateSubAmbito(@RequestBody SubAmbito subAmbitos) {
+    public ResponseEntity<Response> updateSubAmbito(@RequestBody SubAmbito subAmbitos) {
         SubAmbito subAmbito = iSubAmbitos.findOne(subAmbitos.getId());
         subAmbito.setName(subAmbitos.getName());
         iSubAmbitos.save(subAmbito);
-        return "{\"response\": \"SubAmbito modificado correctamente\"}";
+        response.setResponse("SubAmbito actualizado");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @GetMapping(value = "/deleteSubAmbitoById")
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteSubAmbitoById(@PathParam("id") Integer id) {
+    public ResponseEntity<Response> deleteSubAmbitoById(@PathParam("id") Integer id) {
         SubAmbito subAmbito= iSubAmbitos.findOne(id);
         if(subAmbito.isState()){
             subAmbito.setState(false);
             iSubAmbitos.save(subAmbito);
-            return "{\"response\": \"SubAmbito Deshabilitado\"}";
+            response.setResponse("SubAmbito deshabilitado");
+            return new ResponseEntity<Response>(response , HttpStatus.OK);
         }
         subAmbito.setState(true);
         iSubAmbitos.save(subAmbito);
-        return "{\"response\": \"SubAmbito Habilitado\"}";
+        response.setResponse("SubAmbito habilitado");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @GetMapping(value = "/getSubAmbitoById")

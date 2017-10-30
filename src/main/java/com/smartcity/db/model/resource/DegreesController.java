@@ -1,14 +1,14 @@
 package com.smartcity.db.model.resource;
 
 import com.smartcity.db.model.Degree;
-import com.smartcity.db.model.SubAmbito;
+import com.smartcity.db.model.Response;
 import com.smartcity.db.model.repository.interfaces.IDegrees;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 import java.util.List;
 
 @RestController
@@ -18,22 +18,26 @@ public class DegreesController {
     @Autowired
     IDegrees iDegrees;
 
+    Response response;
+
     @GetMapping(value = "/all")
     public List<Degree> getAll() { return iDegrees.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public String persist(@RequestBody Degree degree) {
+    public ResponseEntity<Response> persist(@RequestBody Degree degree) {
         iDegrees.save(degree);
-        return "{\"response\": \"Grado Creado correctamente\"}";
+        response.setResponse("Grado Creado correctamente");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")
-    public String updateDegree(@RequestBody Degree degrees) {
+    public ResponseEntity<Response> updateDegree(@RequestBody Degree degrees) {
         Degree degree = iDegrees.findOne(degrees.getId());
         degree.setName(degrees.getName());
         iDegrees.save(degree);
-        return "{\"response\": \"Grado modificado correctamente\"}";
+        response.setResponse("Grado actualizado");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @GetMapping(value = "/getDegreeById")

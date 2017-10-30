@@ -1,8 +1,11 @@
 package com.smartcity.db.model.resource;
 
 import com.smartcity.db.model.Municipality;
+import com.smartcity.db.model.Response;
 import com.smartcity.db.model.repository.interfaces.IMunicipalities;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.PathParam;
@@ -18,19 +21,22 @@ public class MunicipalitiesController {
     @Autowired
     IMunicipalities iMunicipalities;
 
+    Response response;
+
     @GetMapping(value = "/all")
     public List<Municipality> getAll() { return iMunicipalities.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public String persist(@RequestBody Municipality municipality) {
+    public ResponseEntity<Response> persist(@RequestBody Municipality municipality) {
         iMunicipalities.save(municipality);
-        return "{\"response\": \"Usuario Creado correctamente\"}";
+        response.setResponse("Municipio Creado correctamente");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")
     @Produces(MediaType.APPLICATION_JSON)
-    public String updateMunicipality(@RequestBody Municipality municipalities) {
+    public ResponseEntity<Response> updateMunicipality(@RequestBody Municipality municipalities) {
         Municipality municipality = iMunicipalities.findOne(municipalities.getId());
         municipality.setName(municipalities.getName());
         municipality.setAlcalde(municipalities.getAlcalde());
@@ -43,7 +49,8 @@ public class MunicipalitiesController {
         municipality.setLatitude(municipalities.getLatitude());
         municipality.setLongitude(municipalities.getLongitude());
         iMunicipalities.save(municipality);
-        return "{\"response\": \"Municipio actualizado\"}";
+        response.setResponse("Municipio actualizado");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @GetMapping(value = "/getMunicipalityById")

@@ -11,6 +11,7 @@ public class SubAmbito {
     private int id;
     private String name;
     private int ambito_id;
+    private boolean state;
 
     public SubAmbito() {
     }
@@ -37,6 +38,14 @@ public class SubAmbito {
 
     public void setAmbito_id(int ambito_id) {
         this.ambito_id = ambito_id;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
     }
 
     @Override

@@ -30,7 +30,7 @@ public class UsersController {
     @RequestMapping(method = RequestMethod.POST, value = "/add")
     public String persist(@RequestBody User user) {
         iUsers.save(user);
-        return "Usuario Creado correctamente";
+        return "{\"response\": \"Usuario Creado correctamente\"}";
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")
@@ -44,7 +44,7 @@ public class UsersController {
         user.setState(true);
         user.setType(users.getType());
         iUsers.save(user);
-        return "Usuario Creado correctamente";
+        return "{\"response\": \"Usuario Creado correctamente\"}";
     }
 
     @GetMapping(value = "/deleteUserById")
@@ -54,11 +54,11 @@ public class UsersController {
         if(user.isState()){
             user.setState(false);
             iUsers.save(user);
-            return "Usuario Deshabilitado";
+            return "{\"response\": \"Usuario Deshabilitado\"}";
         }
         user.setState(true);
         iUsers.save(user);
-        return "{response: 'Usuario Habilitado'}";
+        return "{\"response\": \"Usuario Habilitado\"}";
     }
 
     @GetMapping(value = "/getUserById")

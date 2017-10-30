@@ -1,9 +1,11 @@
 package com.smartcity.db.model.resource;
 
+import com.smartcity.db.model.Response;
 import com.smartcity.db.model.User;
 import com.smartcity.db.model.repository.interfaces.IUsers;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -68,6 +70,20 @@ public class UsersController {
         } catch (Exception e)
         {
             return null;
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/getLogin")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseEntity<?> check(@RequestBody User user) {
+        boolean log = iUsers.existsByEmailAndPassword(user.getEmail(), user.getPassword());
+        Response response = new Response();
+        if(!log) {
+            response.setResponse("Datos incorrectos");
+            return new ResponseEntity<Response>(response , HttpStatus.OK);
+        } else {
+            response.setResponse("Login correcto");
+            return new ResponseEntity<User>(iUsers.findByEmail(user.getEmail()),HttpStatus.OK);
         }
     }
 

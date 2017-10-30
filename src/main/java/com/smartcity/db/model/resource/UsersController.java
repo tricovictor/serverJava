@@ -24,19 +24,23 @@ public class UsersController {
     @Autowired
     IUsers iUsers;
 
+    Response response = new Response();
+
+
     @GetMapping(value = "/all")
     public List<User> getAll() {
         return iUsers.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public String persist(@RequestBody User user) {
+    public ResponseEntity<Response> persist(@RequestBody User user) {
         iUsers.save(user);
-        return "{\"response\": \"Usuario Creado correctamente\"}";
+        response.setResponse("Usuario Creado correctamente");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")
-    public String updateUser(@RequestBody User users) {
+    public ResponseEntity<Response> updateUser(@RequestBody User users) {
         User user = iUsers.findOne(users.getId());
         user.setEmail(users.getEmail());
         user.setName(users.getName());
@@ -46,21 +50,24 @@ public class UsersController {
         user.setState(true);
         user.setType(users.getType());
         iUsers.save(user);
-        return "{\"response\": \"Usuario Creado correctamente\"}";
+        response.setResponse("Usuario Actualizado");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @GetMapping(value = "/deleteUserById")
     @Produces(MediaType.APPLICATION_JSON)
-    public String deleteUserById(@PathParam("id") Integer id) {
+    public ResponseEntity<Response> deleteUserById(@PathParam("id") Integer id) {
         User user = iUsers.findOne(id);
         if(user.isState()){
             user.setState(false);
             iUsers.save(user);
-            return "{\"response\": \"Usuario Deshabilitado\"}";
+            response.setResponse("Usuario Deshabilitado");
+            return new ResponseEntity<Response>(response , HttpStatus.OK);
         }
         user.setState(true);
         iUsers.save(user);
-        return "{\"response\": \"Usuario Habilitado\"}";
+        response.setResponse("Usuario Habilitado");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
     }
 
     @GetMapping(value = "/getUserById")
@@ -77,7 +84,6 @@ public class UsersController {
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<?> check(@RequestBody User user) {
         boolean log = iUsers.existsByEmailAndPassword(user.getEmail(), user.getPassword());
-        Response response = new Response();
         if(!log) {
             response.setResponse("Datos incorrectos");
             return new ResponseEntity<Response>(response , HttpStatus.OK);

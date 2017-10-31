@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.ws.rs.PathParam;
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping(value = "/rest/degrees")
 public class DegreesController {

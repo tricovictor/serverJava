@@ -13,8 +13,8 @@ public class Survey {
     private Timestamp initialdate;
     private Timestamp finaldate;
     private String state;
-    private int user_id;
-    private int municipality_id;
+    private int userId;
+    private int municipalityId;
 
     public Survey() {
     }
@@ -51,20 +51,20 @@ public class Survey {
         this.state = state;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public int getMunicipality_id() {
-        return municipality_id;
+    public int getMunicipalityId() {
+        return municipalityId;
     }
 
-    public void setMunicipality_id(int municipality_id) {
-        this.municipality_id = municipality_id;
+    public void setMunicipalityId(int municipalityId) {
+        this.municipalityId = municipalityId;
     }
 
     @Override
@@ -74,8 +74,8 @@ public class Survey {
                 ", initialdate=" + initialdate +
                 ", finaldate=" + finaldate +
                 ", state='" + state + '\'' +
-                ", user_id=" + user_id +
-                ", municipality_id=" + municipality_id +
+                ", userId=" + userId +
+                ", municipalityId=" + municipalityId +
                 '}';
     }
 }

@@ -20,7 +20,7 @@ public class Municipality {
     private String alcalde;
     private int superficie;
     private String website;
-    private int department_id;
+    private int departmentId;
 
     public Municipality() {
     }
@@ -105,12 +105,12 @@ public class Municipality {
         this.website = website;
     }
 
-    public int getDepartment_id() {
-        return department_id;
+    public int getDepartmentId() {
+        return departmentId;
     }
 
-    public void setDepartment_id(int department_id) {
-        this.department_id = department_id;
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
     }
 
     @Override
@@ -126,7 +126,7 @@ public class Municipality {
                 ", alcalde='" + alcalde + '\'' +
                 ", superficie=" + superficie +
                 ", website='" + website + '\'' +
-                ", department_id=" + department_id +
+                ", departmentId=" + departmentId +
                 '}';
     }
 }

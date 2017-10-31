@@ -1,6 +1,5 @@
 package com.smartcity.db.model.resource;
 
-import com.smartcity.db.model.Ambito;
 import com.smartcity.db.model.Response;
 import com.smartcity.db.model.SubAmbito;
 import com.smartcity.db.model.repository.interfaces.ISubAmbitos;
@@ -14,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping(value = "/rest/subambitos")
 public class SubAmbitosController {
@@ -69,5 +69,17 @@ public class SubAmbitosController {
             return null;
         }
     }
+
+    @GetMapping(value = "/getSubAmbitosByAmbito")
+    public List<SubAmbito> getSubAmbitosByAmbito(@PathParam("id") int id) {
+        try {
+            return iSubAmbitos.findByAmbitoId(id);
+        } catch (Exception e)
+        {
+            return null;
+        }
+
+    }
+
 
 }

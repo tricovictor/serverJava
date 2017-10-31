@@ -3,25 +3,19 @@ package com.smartcity.db.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import java.security.Timestamp;
 
 @Entity
-public class Degree {
-
+public class TypeLevel {
     @Id
     @GeneratedValue
-    private int id;
+    private Integer id;
     private String name;
-    private int typelevelId;
 
-    public Degree() {
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -33,20 +27,11 @@ public class Degree {
         this.name = name;
     }
 
-    public int getTypelevelId() {
-        return typelevelId;
-    }
-
-    public void setTypelevelId(int typelevelId) {
-        this.typelevelId = typelevelId;
-    }
-
     @Override
     public String toString() {
-        return "Degree{" +
+        return "TypeLevel{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", typelevelId=" + typelevelId +
                 '}';
     }
 }

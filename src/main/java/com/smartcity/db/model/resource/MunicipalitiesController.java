@@ -40,7 +40,7 @@ public class MunicipalitiesController {
         Municipality municipality = iMunicipalities.findOne(municipalities.getId());
         municipality.setName(municipalities.getName());
         municipality.setAlcalde(municipalities.getAlcalde());
-        municipality.setDepartment_id(municipalities.getDepartment_id());
+        municipality.setDepartmentId(municipalities.getDepartmentId());
         municipality.setHabitants(municipalities.getHabitants());
         municipality.setIdioms(municipalities.getIdioms());
         municipality.setIntendent(municipalities.getIntendent());

@@ -13,7 +13,7 @@ public class Level {
     private int id;
     private String name;
     private int value;
-    private int degree_id;
+    private int degreeId;
     private boolean selected;
 
     public Level() {
@@ -43,12 +43,12 @@ public class Level {
         this.value = value;
     }
 
-    public int getDegree_id() {
-        return degree_id;
+    public int getDegreeId() {
+        return degreeId;
     }
 
-    public void setDegree_id(int degree_id) {
-        this.degree_id = degree_id;
+    public void setDegreeId(int degreeId) {
+        this.degreeId = degreeId;
     }
 
     public boolean isSelected() {
@@ -65,7 +65,7 @@ public class Level {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", value=" + value +
-                ", degree_id=" + degree_id +
+                ", degreeId=" + degreeId +
                 ", selected=" + selected +
                 '}';
     }

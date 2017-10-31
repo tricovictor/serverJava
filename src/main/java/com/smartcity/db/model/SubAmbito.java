@@ -10,7 +10,7 @@ public class SubAmbito {
     @GeneratedValue
     private int id;
     private String name;
-    private int ambito_id;
+    private int ambitoId;
     private boolean state;
 
     public SubAmbito() {
@@ -32,12 +32,12 @@ public class SubAmbito {
         this.name = name;
     }
 
-    public int getAmbito_id() {
-        return ambito_id;
+    public int getAmbitoId() {
+        return ambitoId;
     }
 
-    public void setAmbito_id(int ambito_id) {
-        this.ambito_id = ambito_id;
+    public void setAmbitoId(int ambitoId) {
+        this.ambitoId = ambitoId;
     }
 
     public boolean isState() {
@@ -53,7 +53,8 @@ public class SubAmbito {
         return "SubAmbito{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", ambito_id=" + ambito_id +
+                ", ambitoId=" + ambitoId +
+                ", state=" + state +
                 '}';
     }
 }

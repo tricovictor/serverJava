@@ -10,8 +10,8 @@ public class Score {
     @Id
     @GeneratedValue
     private int id;
-    private int surveys_id;
-    private int level_id;
+    private int surveysId;
+    private int levelId;
 
     public Score() {
     }
@@ -24,28 +24,28 @@ public class Score {
         this.id = id;
     }
 
-    public int getSurveys_id() {
-        return surveys_id;
+    public int getLevelId() {
+        return levelId;
     }
 
-    public void setSurveys_id(int surveys_id) {
-        this.surveys_id = surveys_id;
+    public void setLevelId(int levelId) {
+        this.levelId = levelId;
     }
 
-    public int getLevel_id() {
-        return level_id;
+    public int getSurveysId() {
+        return surveysId;
     }
 
-    public void setLevel_id(int level_id) {
-        this.level_id = level_id;
+    public void setSurveysId(int surveysId) {
+        this.surveysId = surveysId;
     }
 
     @Override
     public String toString() {
         return "Score{" +
                 "id=" + id +
-                ", surveys_id=" + surveys_id +
-                ", level_id=" + level_id +
+                ", surveysId=" + surveysId +
+                ", levelId=" + levelId +
                 '}';
     }
 }

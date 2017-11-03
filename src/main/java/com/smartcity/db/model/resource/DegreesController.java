@@ -22,7 +22,8 @@ public class DegreesController {
     Response response;
 
     @GetMapping(value = "/all")
-    public List<Degree> getAll() { return iDegrees.findAll();
+    public List<Degree> getAll() {
+        return iDegrees.findAll();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")

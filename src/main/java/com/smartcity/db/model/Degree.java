@@ -13,7 +13,11 @@ public class Degree {
     @GeneratedValue
     private int id;
     private String name;
-    private int typelevelId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "typeLevelId")
+    @JsonIgnore
+    private TypeLevel typeLevel;
 
     @OneToMany(mappedBy = "degree", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -38,12 +42,12 @@ public class Degree {
         this.name = name;
     }
 
-    public int getTypelevelId() {
-        return typelevelId;
+    public TypeLevel getTypeLevel() {
+        return typeLevel;
     }
 
-    public void setTypelevelId(int typelevelId) {
-        this.typelevelId = typelevelId;
+    public void setTypeLevel(TypeLevel typeLevel) {
+        this.typeLevel = typeLevel;
     }
 
     public List<Score> getScores() {
@@ -52,14 +56,5 @@ public class Degree {
 
     public void setScores(List<Score> scores) {
         this.scores = scores;
-    }
-
-    @Override
-    public String toString() {
-        return "Degree{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", typelevelId=" + typelevelId +
-                '}';
     }
 }

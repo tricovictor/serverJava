@@ -1,10 +1,12 @@
 package com.smartcity.db.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.security.Timestamp;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Municipality {
@@ -20,7 +22,14 @@ public class Municipality {
     private String alcalde;
     private int superficie;
     private String website;
-    private int departmentId;
+
+    @OneToMany(mappedBy = "municipality", cascade = CascadeType.ALL)
+    private List<Survey> surveys = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "departmentId")
+    @JsonIgnore
+    private Department department;
 
     public Municipality() {
     }
@@ -105,12 +114,20 @@ public class Municipality {
         this.website = website;
     }
 
-    public int getDepartmentId() {
-        return departmentId;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentId(int departmentId) {
-        this.departmentId = departmentId;
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public List<Survey> getSurveys() {
+        return surveys;
+    }
+
+    public void setSurveys(List<Survey> surveys) {
+        this.surveys = surveys;
     }
 
     @Override
@@ -126,7 +143,6 @@ public class Municipality {
                 ", alcalde='" + alcalde + '\'' +
                 ", superficie=" + superficie +
                 ", website='" + website + '\'' +
-                ", departmentId=" + departmentId +
                 '}';
     }
 }

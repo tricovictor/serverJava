@@ -1,8 +1,8 @@
 package com.smartcity.db.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
@@ -17,6 +17,10 @@ public class User {
     private String type;
     private String phone;
     private boolean state;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Survey> surveys = new ArrayList<>();
+
 
 
     public User() {
@@ -84,5 +88,13 @@ public class User {
 
     public void setState(boolean state) {
         this.state = state;
+    }
+
+    public List<Survey> getSurvey() {
+        return surveys;
+    }
+
+    public void setSurvey(List<Survey> survey) {
+        this.surveys = survey;
     }
 }

@@ -15,8 +15,14 @@ public class Survey {
     private Timestamp initialdate;
     private Timestamp finaldate;
     private String state;
-    private int userId;
-    private int municipalityId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "municipalityId")
+    private Municipality municipality;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
+    private User user;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     private List<Score> scores = new ArrayList<>();
@@ -56,20 +62,28 @@ public class Survey {
         this.state = state;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getMunicipalityId() {
-        return municipalityId;
+    public List<Score> getScores() {
+        return scores;
     }
 
-    public void setMunicipalityId(int municipalityId) {
-        this.municipalityId = municipalityId;
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
+    }
+
+    public Municipality getMunicipality() {
+        return municipality;
+    }
+
+    public void setMunicipality(Municipality municipality) {
+        this.municipality = municipality;
     }
 
     @Override
@@ -79,8 +93,6 @@ public class Survey {
                 ", initialdate=" + initialdate +
                 ", finaldate=" + finaldate +
                 ", state='" + state + '\'' +
-                ", userId=" + userId +
-                ", municipalityId=" + municipalityId +
                 '}';
     }
 }

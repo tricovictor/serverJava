@@ -1,9 +1,9 @@
 package com.smartcity.db.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.security.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Department {
@@ -11,6 +11,9 @@ public class Department {
     @GeneratedValue
     private int id;
     private String name;
+
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+    private List<Municipality> municipalities = new ArrayList<>();
 
     public Department() {
     }
@@ -29,6 +32,14 @@ public class Department {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Municipality> getMunicipalities() {
+        return municipalities;
+    }
+
+    public void setMunicipalities(List<Municipality> municipalities) {
+        this.municipalities = municipalities;
     }
 
     @Override

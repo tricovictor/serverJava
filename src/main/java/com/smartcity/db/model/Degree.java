@@ -1,9 +1,10 @@
 package com.smartcity.db.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.security.Timestamp;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Degree {
@@ -13,6 +14,10 @@ public class Degree {
     private int id;
     private String name;
     private int typelevelId;
+
+    @OneToMany(mappedBy = "degree", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Score> scores = new ArrayList<>();
 
     public Degree() {
     }
@@ -39,6 +44,14 @@ public class Degree {
 
     public void setTypelevelId(int typelevelId) {
         this.typelevelId = typelevelId;
+    }
+
+    public List<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.smartcity.db.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.security.Timestamp;
 
 @Entity
@@ -10,8 +8,15 @@ public class Score {
     @Id
     @GeneratedValue
     private int id;
-    private int surveysId;
     private int levelId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "degreeId")
+    private Degree degree;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "surveyId")
+    private Survey survey;
 
     public Score() {
     }
@@ -32,20 +37,11 @@ public class Score {
         this.levelId = levelId;
     }
 
-    public int getSurveysId() {
-        return surveysId;
+    public Degree getDegree() {
+        return degree;
     }
 
-    public void setSurveysId(int surveysId) {
-        this.surveysId = surveysId;
-    }
-
-    @Override
-    public String toString() {
-        return "Score{" +
-                "id=" + id +
-                ", surveysId=" + surveysId +
-                ", levelId=" + levelId +
-                '}';
+    public void setDegree(Degree degree) {
+        this.degree = degree;
     }
 }

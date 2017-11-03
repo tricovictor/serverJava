@@ -20,10 +20,5 @@ public class ScoresController {
     public List<Score> getAll() { return iScores.findAll();
     }
 
-    @PostMapping(value = "/load")
-    public List<Score> persist(@RequestBody final Score score) {
-        iScores.save(score);
-        return iScores.findAll();
-    }
 
 }

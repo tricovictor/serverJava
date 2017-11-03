@@ -1,9 +1,11 @@
 package com.smartcity.db.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.security.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Ambito {
@@ -13,6 +15,10 @@ public class Ambito {
     private Integer id;
     private String name;
     private boolean state;
+
+    @OneToMany(mappedBy = "ambito", cascade = CascadeType.ALL)
+    private List<SubAmbito> subAmbitos = new ArrayList<>();
+
 
     public Ambito() {
     }
@@ -39,6 +45,14 @@ public class Ambito {
 
     public void setState(boolean state) {
         this.state = state;
+    }
+
+    public List<SubAmbito> getSubAmbitos() {
+        return subAmbitos;
+    }
+
+    public void setSubAmbitos(List<SubAmbito> subAmbitos) {
+        this.subAmbitos = subAmbitos;
     }
 
     @Override

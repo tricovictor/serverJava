@@ -1,8 +1,8 @@
 package com.smartcity.db.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 
 @Entity
 public class SubAmbito {
@@ -10,8 +10,13 @@ public class SubAmbito {
     @GeneratedValue
     private int id;
     private String name;
-    private int ambitoId;
     private boolean state;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ambitoId")
+    @JsonIgnore
+    private Ambito ambito;
+
 
     public SubAmbito() {
     }
@@ -32,14 +37,6 @@ public class SubAmbito {
         this.name = name;
     }
 
-    public int getAmbitoId() {
-        return ambitoId;
-    }
-
-    public void setAmbitoId(int ambitoId) {
-        this.ambitoId = ambitoId;
-    }
-
     public boolean isState() {
         return state;
     }
@@ -48,13 +45,21 @@ public class SubAmbito {
         this.state = state;
     }
 
+    public Ambito getAmbito() {
+        return ambito;
+    }
+
+    public void setAmbito(Ambito ambito) {
+        this.ambito = ambito;
+    }
+
     @Override
     public String toString() {
         return "SubAmbito{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", ambitoId=" + ambitoId +
                 ", state=" + state +
+                ", ambito=" + ambito +
                 '}';
     }
 }

@@ -2,6 +2,7 @@ package com.smartcity.db.model.resource;
 
 import com.smartcity.db.model.Ambito;
 import com.smartcity.db.model.Response;
+import com.smartcity.db.model.SubAmbito;
 import com.smartcity.db.model.User;
 import com.smartcity.db.model.repository.interfaces.IAmbitos;
 import org.springframework.beans.factory.annotation.Autowired;

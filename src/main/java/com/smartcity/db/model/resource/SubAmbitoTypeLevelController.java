@@ -46,7 +46,7 @@ public class SubAmbitoTypeLevelController {
     }
 
     @GetMapping(value = "/getSubAmbitosTypeLevel")
-    public SubAmbitoTypeLevel getSubAmbitosTypeLevel(@PathParam("id") int id) {
+    public SubAmbitoTypeLevel getSubAmbitosTypeLevel(@PathParam("id") Integer id) {
         try {
             return iSubAmbitoTypeLevel.findBySubAmbitoId(id);
         } catch (Exception e)

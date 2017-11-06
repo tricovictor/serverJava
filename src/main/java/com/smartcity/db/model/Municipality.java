@@ -23,9 +23,6 @@ public class Municipality {
     private int superficie;
     private String website;
 
-    @OneToMany(mappedBy = "municipality", cascade = CascadeType.ALL)
-    private List<Survey> surveys = new ArrayList<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "departmentId")
     @JsonIgnore
@@ -122,13 +119,6 @@ public class Municipality {
         this.department = department;
     }
 
-    public List<Survey> getSurveys() {
-        return surveys;
-    }
-
-    public void setSurveys(List<Survey> surveys) {
-        this.surveys = surveys;
-    }
 
     @Override
     public String toString() {

@@ -3,6 +3,8 @@ package com.smartcity.db.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class SubAmbito {
@@ -11,6 +13,9 @@ public class SubAmbito {
     private int id;
     private String name;
     private boolean state;
+
+    @OneToMany(mappedBy = "subAmbito", cascade = CascadeType.ALL)
+    private List<Score> scores = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ambitoId")
@@ -51,6 +56,14 @@ public class SubAmbito {
 
     public void setAmbito(Ambito ambito) {
         this.ambito = ambito;
+    }
+
+    public List<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
     }
 
     @Override

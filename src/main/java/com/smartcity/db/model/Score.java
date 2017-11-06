@@ -11,6 +11,11 @@ public class Score {
     private int levelId;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "subAmbitoId")
+    private SubAmbito subAmbito;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "degreeId")
     private Degree degree;
 
@@ -43,5 +48,21 @@ public class Score {
 
     public void setDegree(Degree degree) {
         this.degree = degree;
+    }
+
+    public SubAmbito getSubAmbito() {
+        return subAmbito;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
+    }
+
+    public void setSubAmbito(SubAmbito subAmbito) {
+        this.subAmbito = subAmbito;
     }
 }

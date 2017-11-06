@@ -1,5 +1,7 @@
 package com.smartcity.db.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +19,6 @@ public class User {
     private String type;
     private String phone;
     private boolean state;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Survey> surveys = new ArrayList<>();
-
-
 
     public User() {
     }
@@ -90,11 +87,4 @@ public class User {
         this.state = state;
     }
 
-    public List<Survey> getSurvey() {
-        return surveys;
-    }
-
-    public void setSurvey(List<Survey> survey) {
-        this.surveys = survey;
-    }
 }

@@ -1,9 +1,9 @@
 package com.smartcity.db.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,17 +12,11 @@ public class Survey {
     @Id
     @GeneratedValue
     private int id;
-    private Timestamp initialdate;
-    private Timestamp finaldate;
+    private Date initialdate;
+    private Date finaldate;
     private String state;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "municipalityId")
-    private Municipality municipality;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId")
-    private User user;
+    private int userId;
+    private int municipalityId;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     private List<Score> scores = new ArrayList<>();
@@ -38,19 +32,19 @@ public class Survey {
         this.id = id;
     }
 
-    public Timestamp getInitialdate() {
+    public Date getInitialdate() {
         return initialdate;
     }
 
-    public void setInitialdate(Timestamp initialdate) {
+    public void setInitialdate(Date initialdate) {
         this.initialdate = initialdate;
     }
 
-    public Timestamp getFinaldate() {
+    public Date getFinaldate() {
         return finaldate;
     }
 
-    public void setFinaldate(Timestamp finaldate) {
+    public void setFinaldate(Date finaldate) {
         this.finaldate = finaldate;
     }
 
@@ -62,12 +56,12 @@ public class Survey {
         this.state = state;
     }
 
-    public User getUser() {
-        return user;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public List<Score> getScores() {
@@ -78,12 +72,12 @@ public class Survey {
         this.scores = scores;
     }
 
-    public Municipality getMunicipality() {
-        return municipality;
+    public int getMunicipalityId() {
+        return municipalityId;
     }
 
-    public void setMunicipality(Municipality municipality) {
-        this.municipality = municipality;
+    public void setMunicipalityId(int municipalityId) {
+        this.municipalityId = municipalityId;
     }
 
     @Override

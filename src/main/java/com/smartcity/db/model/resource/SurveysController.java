@@ -34,12 +34,16 @@ public class SurveysController {
         surveys.setInitialdate(date);
         surveys.setFinaldate(date);
         surveys.setState("activa");
-        surveys.setScores(null);
         iSurveys.save(surveys);
-        try {
+        addSurvey(surveys);
+        return surveys;
+    }
+
+
+    private void addSurvey(Survey survey){
 
         SubAmbitosController subAmbitosController = new SubAmbitosController();
-        List<SubAmbito> subAmbitoList = subAmbitosController.iSubAmbitos.findAll();
+        List<SubAmbito> subAmbitoList = subAmbitosController.getAll();
         SubAmbitoTypeLevelController subAmbitoTypeLevelController = new SubAmbitoTypeLevelController();
         DegreesController degreesController = new DegreesController();
         ScoresController scoresController = new ScoresController();
@@ -49,21 +53,19 @@ public class SurveysController {
                     getSubAmbitosTypeLevel(subAmbitoList.get(i).getId());
             List<Degree> degreeList =
                     degreesController.getDegreeByType(subAmbitoTypeLevel.getSubAmbitoId());
-            for (int j=0 ; j<degreeList.size() ; j++) {
+            System.out.println("primer for");
+            for (int j = 0; j < degreeList.size(); j++) {
                 Score score = new Score();
                 score.setSubAmbito(subAmbitoList.get(i));
                 score.setDegree(degreeList.get(j));
                 score.setLevelId(0);
-                score.setSurvey(surveys);
+                score.setSurvey(survey);
                 scoresController.iScores.save(score);
-            //falta aqui
+                System.out.println("segundo for");
+
+                //falta aqui
             }
         }
-        } catch (Exception e){
-            System.out.println(e);
-        }
-
-        return surveys;
     }
 }
 

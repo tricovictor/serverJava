@@ -2,10 +2,12 @@ package com.smartcity.db.model.resource;
 
 
 import com.smartcity.db.model.*;
-import com.smartcity.db.model.repository.interfaces.ISurveys;
+import com.smartcity.db.model.repository.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.*;
+import javax.ws.rs.PathParam;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +19,22 @@ public class SurveysController {
     @Autowired
     ISurveys iSurveys;
 
+    @Autowired
+    ISubAmbitoTypeLevel iSubAmbitoTypeLevel;
+
+    @Autowired
+    ISubAmbitos iSubAmbitos;
+
+    @Autowired
+    IDegrees iDegrees;
+
+    @Autowired
+    IScores iScores;
+
     Response response;
+
+    @PersistenceContext
+    EntityManager em;
 
     @GetMapping(value = "/all")
     public List<Survey> getAll() {
@@ -39,33 +56,31 @@ public class SurveysController {
         return surveys;
     }
 
-
+    @GetMapping(value = "/addSurvey")
     private void addSurvey(Survey survey){
 
-        SubAmbitosController subAmbitosController = new SubAmbitosController();
-        List<SubAmbito> subAmbitoList = subAmbitosController.getAll();
-        SubAmbitoTypeLevelController subAmbitoTypeLevelController = new SubAmbitoTypeLevelController();
-        DegreesController degreesController = new DegreesController();
-        ScoresController scoresController = new ScoresController();
-
-        for (int i=0 ; i<subAmbitoList.size() ; i++) {
-            SubAmbitoTypeLevel subAmbitoTypeLevel = subAmbitoTypeLevelController.
-                    getSubAmbitosTypeLevel(subAmbitoList.get(i).getId());
-            List<Degree> degreeList =
-                    degreesController.getDegreeByType(subAmbitoTypeLevel.getSubAmbitoId());
-            System.out.println("primer for");
-            for (int j = 0; j < degreeList.size(); j++) {
-                Score score = new Score();
-                score.setSubAmbito(subAmbitoList.get(i));
-                score.setDegree(degreeList.get(j));
-                score.setLevelId(0);
-                score.setSurvey(survey);
-                scoresController.iScores.save(score);
-                System.out.println("segundo for");
-
-                //falta aqui
+        try {
+            List<SubAmbitoTypeLevel> subAmbitoTypeLevelList = iSubAmbitoTypeLevel.findAll();
+            for (SubAmbitoTypeLevel subAmbitoTypeLevel : subAmbitoTypeLevelList ) {
+                List<Degree> degreeList = iDegrees.findByTypeLevelId(subAmbitoTypeLevel.getTypeLevelId());
+                for (Degree degree : degreeList) {
+                    Score score = new Score();
+                    score.setSurvey(survey);
+                    score.setLevelId(0);
+                    score.setSubAmbito(iSubAmbitos.findOne(subAmbitoTypeLevel.getSubAmbitoId()));
+                    score.setDegree(degree);
+                    iScores.save(score);
+                }
             }
+        } catch (Exception e){
+            System.out.print(e.toString());
         }
     }
+
+    @GetMapping(value = "/getSurveyById")
+    private Survey getSurveyById(@PathParam("id") Integer id) {
+        return iSurveys.findByMunicipalityIdAndState(id, "activa");
+    }
+
 }
 

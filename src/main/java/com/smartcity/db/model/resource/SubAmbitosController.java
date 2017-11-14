@@ -71,7 +71,7 @@ public class SubAmbitosController {
     }
 
     @GetMapping(value = "/getSubAmbitosByAmbito")
-    public List<SubAmbito> getSubAmbitosByAmbito(@PathParam("id") int id) {
+    public List<SubAmbito> getSubAmbitosByAmbito(@PathParam("id") Integer id) {
         try {
             return iSubAmbitos.findByAmbitoId(id);
         } catch (Exception e)

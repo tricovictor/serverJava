@@ -25,6 +25,7 @@ public class SubAmbitoTypeLevelController {
 
     @GetMapping(value = "/all")
     public List<SubAmbitoTypeLevel> getAll() {
+        System.out.println(iSubAmbitoTypeLevel.count());
         return iSubAmbitoTypeLevel.findAll();
     }
 

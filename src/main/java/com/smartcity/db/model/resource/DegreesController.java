@@ -52,7 +52,4 @@ public class DegreesController {
         }
     }
 
-    public List<Degree> getDegreeByType(Integer type){
-        return iDegrees.findByTypeLevel(type);
-    }
 }

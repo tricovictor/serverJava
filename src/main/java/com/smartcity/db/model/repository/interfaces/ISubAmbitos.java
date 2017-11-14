@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ISubAmbitos extends JpaRepository<SubAmbito, Integer> {
 
-    List<SubAmbito> findByAmbitoId(int ambito);
+    List<SubAmbito> findByAmbitoId(Integer ambito);
 }

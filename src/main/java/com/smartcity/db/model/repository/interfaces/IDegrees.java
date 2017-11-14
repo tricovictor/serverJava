@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface IDegrees extends JpaRepository<Degree, Integer> {
     List<Degree> findByTypeLevel(Integer level);
+
+    List<Degree> findByTypeLevelId(Integer id);
 }

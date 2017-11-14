@@ -57,4 +57,14 @@ public class Degree {
     public void setScores(List<Score> scores) {
         this.scores = scores;
     }
+
+    @Override
+    public String toString() {
+        return "Degree{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", typeLevel=" + typeLevel +
+                ", scores=" + scores +
+                '}';
+    }
 }

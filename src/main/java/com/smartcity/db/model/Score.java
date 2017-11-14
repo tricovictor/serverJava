@@ -1,5 +1,7 @@
 package com.smartcity.db.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.security.Timestamp;
 
@@ -10,16 +12,16 @@ public class Score {
     private int id;
     private int levelId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "subAmbitoId")
     private SubAmbito subAmbito;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "degreeId")
     private Degree degree;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "surveyId")
     private Survey survey;
 

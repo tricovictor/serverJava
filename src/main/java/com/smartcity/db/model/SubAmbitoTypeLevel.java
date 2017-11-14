@@ -14,6 +14,10 @@ public class SubAmbitoTypeLevel {
     private int subAmbitoId;
     private int typeLevelId;
 
+
+    public SubAmbitoTypeLevel() {
+    }
+
     public int getId() {
         return id;
     }

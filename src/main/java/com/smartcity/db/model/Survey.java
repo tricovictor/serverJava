@@ -1,6 +1,8 @@
 package com.smartcity.db.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -19,6 +21,7 @@ public class Survey {
     private int municipalityId;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Score> scores = new ArrayList<>();
 
     public Survey() {

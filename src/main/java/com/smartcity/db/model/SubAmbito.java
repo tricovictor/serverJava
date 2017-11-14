@@ -15,6 +15,7 @@ public class SubAmbito {
     private boolean state;
 
     @OneToMany(mappedBy = "subAmbito", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Score> scores = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

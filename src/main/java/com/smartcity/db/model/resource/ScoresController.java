@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @CrossOrigin(maxAge = 3600)
 @RestController
+@EnableWebMvc
 @RequestMapping(value = "/rest/scores")
 public class ScoresController {
 
@@ -46,6 +48,13 @@ public class ScoresController {
         Score score = iScores.findOne(scores.getId());
         score.setLevelId(scores.getLevelId());
         iScores.save(score);
+    }
+
+    @GetMapping(value = "/surveyInActive")
+    public List<Score> getCountRest(@PathParam("id") Integer id) {
+        System.out.println(id);
+        List<Score> scores = iScores.findBySurveyIdAndLevelId(id, 0);
+        return scores;
     }
 
 }

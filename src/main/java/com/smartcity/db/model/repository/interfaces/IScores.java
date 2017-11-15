@@ -9,4 +9,6 @@ public interface IScores extends JpaRepository<Score, Integer> {
 
     List<Score> findBySurveyId(Integer id);
 
+    List<Score> findBySurveyIdAndLevelId(Integer survey, Integer level);
+
 }

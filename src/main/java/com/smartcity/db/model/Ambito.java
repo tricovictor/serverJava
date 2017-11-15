@@ -1,9 +1,7 @@
 package com.smartcity.db.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.security.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +16,6 @@ public class Ambito {
 
     @OneToMany(mappedBy = "ambito", cascade = CascadeType.ALL)
     private List<SubAmbito> subAmbitos = new ArrayList<>();
-
 
     public Ambito() {
     }
@@ -60,6 +57,8 @@ public class Ambito {
         return "Ambito{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", state=" + state +
+                ", subAmbitos=" + subAmbitos +
                 '}';
     }
 }

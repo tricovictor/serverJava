@@ -13,6 +13,7 @@ public class SubAmbito {
     private int id;
     private String name;
     private boolean state;
+    private Integer groupId;
 
     @OneToMany(mappedBy = "subAmbito", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -22,7 +23,6 @@ public class SubAmbito {
     @JoinColumn(name = "ambitoId")
     @JsonIgnore
     private Ambito ambito;
-
 
     public SubAmbito() {
     }
@@ -67,12 +67,21 @@ public class SubAmbito {
         this.scores = scores;
     }
 
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
     @Override
     public String toString() {
         return "SubAmbito{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", state=" + state +
+                ", scores=" + scores +
                 ", ambito=" + ambito +
                 '}';
     }

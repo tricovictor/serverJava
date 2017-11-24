@@ -1,18 +1,16 @@
 package com.smartcity.db.model.resource;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.smartcity.db.model.*;
 import com.smartcity.db.model.repository.interfaces.*;
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -43,6 +41,12 @@ public class GraphicsController {
     @Autowired
     IGraphicsGroupAux iGraphicsGroupAux;
 
+    @Autowired
+    IGraphicAmbitoAux iGraphicAmbitoAux;
+
+    @Autowired
+    IAmbitos iAmbitos;
+
     Response response;
 
     @GetMapping(value = "/all")
@@ -53,7 +57,7 @@ public class GraphicsController {
     @GetMapping(value = "/getGraphics")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Graphic> getGraphics(@PathParam("id") Integer id) {
-        iGraphics.deleteAll();
+        resetAux();
         List<Score> scoreList = iScores.findBySurveyId(id);
         JSONArray labels = new JSONArray();
         JSONArray data = new JSONArray();
@@ -92,7 +96,7 @@ public class GraphicsController {
    @GetMapping(value = "/getGraphicsGroup")
     @Produces(MediaType.APPLICATION_JSON)
     public List<GraphicGroupAux> getGraphicsGroup() {
-        iGraphicsGroupAux.deleteAll();
+        List<GraphGroup> graphicGroupList = iGroups.findAll();
         List<Graphic> graphicsList = iGraphics.findAll();
         Collections.sort(graphicsList, new Comparator<Graphic>() {
             @Override
@@ -107,41 +111,72 @@ public class GraphicsController {
         });
         JSONArray labels = new JSONArray();
         JSONArray data = new JSONArray();
-        int groupId = 0;
         try {
-            for (Graphic graph : graphicsList) {
-                if (graph.getGroupId() == groupId || groupId == 0) {
-                    labels.put(graph.getName());
-                    groupId = graph.getGroupId();
-                    Integer total = 0;
-                    String arrayTotal[] = graph.getData().substring(1, graph.getData().length()-1).split(",");
-                    System.out.println(arrayTotal[0]);
-                    for (int i=0; i<arrayTotal.length; i++)
-                    {
-                        total += Integer.parseInt(arrayTotal[i]);
+            for(GraphGroup graphGroup : graphicGroupList) {
+                for (Graphic graph : graphicsList) {
+                    if (graph.getGroupId().equals(graphGroup.getId())) {
+                        labels.put(graph.getName());
+                        Integer total = 0;
+                        String arrayTotal[] = graph.getData().substring(1, graph.getData().length() - 1).split(",");
+                        for (int i = 0; i < arrayTotal.length; i++) {
+                            total += Integer.parseInt(arrayTotal[i]);
+                        }
+                        data.put(total / arrayTotal.length);
                     }
-                    data.put(total/arrayTotal.length);
                 }
-                if (graph.getGroupId() != groupId) {
-                    GraphicGroupAux graphic = new GraphicGroupAux();
-                    graphic.setName(iGroups.findOne(graph.getGroupId()).getName());
-                    graphic.setLabels(labels.toString());
-                    graphic.setData(data.toString());
-                    iGraphicsGroupAux.save(graphic);
-                    labels = new JSONArray();
-                    data = new JSONArray();
-                    groupId = graph.getGroupId();
-                }
+                GraphicGroupAux graphic = new GraphicGroupAux();
+                graphic.setGroupId(graphGroup.getId());
+                graphic.setName(graphGroup.getName());
+                graphic.setLabels(labels.toString());
+                graphic.setData(data.toString());
+                iGraphicsGroupAux.save(graphic);
+                labels = new JSONArray();
+                data = new JSONArray();
             }
         } catch (Exception e) {
             return null;
         }
         return iGraphicsGroupAux.findAll();
     }
-    /*{
-        labels: ['Running', 'Swimming', 'Eating', 'Cycling'],
-        datasets: [{
-        data: [20, 10, 4, 2]
-    }]
-    }*/
+
+    @GetMapping(value = "/getGraphicsAmbitos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<GraphicAmbitoAux> getGraphicsAmbitos() {
+        List<Ambito> ambitoList = iAmbitos.findAll();
+        List<GraphGroup> graphicGroupList = iGroups.findAll();
+        JSONArray labels = new JSONArray();
+        JSONArray data = new JSONArray();
+        try {
+            for(Ambito ambito : ambitoList) {
+                for (GraphGroup graphGroup : graphicGroupList) {
+                    if (graphGroup.getAmbitoId().equals(ambito.getId())) {
+                            GraphicGroupAux graphicGroupAux = iGraphicsGroupAux.findByGroupId(graphGroup.getId());
+                            labels.put(graphicGroupAux.getName());
+                            Integer total = 0;
+                            String arrayTotal[] = graphicGroupAux.getData().substring(1, graphicGroupAux.getData().length() - 1).split(",");
+                            for (int i = 0; i < arrayTotal.length; i++) {
+                                total += Integer.parseInt(arrayTotal[i]);
+                            }
+                            data.put(total / arrayTotal.length);
+                    }
+                }
+                GraphicAmbitoAux graphic = new GraphicAmbitoAux();
+                graphic.setName(ambito.getName());
+                graphic.setLabels(labels.toString());
+                graphic.setData(data.toString());
+                iGraphicAmbitoAux.save(graphic);
+                labels = new JSONArray();
+                data = new JSONArray();
+            }
+        } catch (Exception e) {
+            return null;
+        }
+        return iGraphicAmbitoAux.findAll();
+    }
+    private void resetAux(){
+        iGraphics.deleteAll();
+        iGraphicsGroupAux.deleteAll();
+        iGraphicAmbitoAux.deleteAll();
+    }
+
 }

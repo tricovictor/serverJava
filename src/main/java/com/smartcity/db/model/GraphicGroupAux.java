@@ -10,6 +10,7 @@ public class GraphicGroupAux {
     @Id
     @GeneratedValue
     private Integer id;
+    private Integer groupId;
     private String name;
     private String labels;
     private String data;
@@ -34,6 +35,14 @@ public class GraphicGroupAux {
         this.id = id;
     }
 
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
+    }
+
     public String getName() {
         return name;
     }
@@ -54,6 +63,7 @@ public class GraphicGroupAux {
     public String toString() {
         return "GraphicGroupAux{" +
                 "id=" + id +
+                ", groupId=" + groupId +
                 ", name='" + name + '\'' +
                 ", labels='" + labels + '\'' +
                 ", data='" + data + '\'' +

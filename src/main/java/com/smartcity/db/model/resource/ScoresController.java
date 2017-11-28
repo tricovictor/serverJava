@@ -35,8 +35,6 @@ public class ScoresController {
     }
 
     @GetMapping(value = "/getScoreByMunicipality")
-    @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
-    @JsonIgnoreProperties(ignoreUnknown = true)
     public List<Score> getScoreByMunicipality(@PathParam("id") Integer id) {
         return iScores.findBySurveyId(id);
     }

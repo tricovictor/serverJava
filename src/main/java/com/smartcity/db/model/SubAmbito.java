@@ -3,6 +3,7 @@ package com.smartcity.db.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class SubAmbito {
     @JsonIgnore
     private List<Score> scores = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "ambitoId")
     @JsonIgnore
     private Ambito ambito;
@@ -81,6 +82,7 @@ public class SubAmbito {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", state=" + state +
+                ", groupId=" + groupId +
                 ", scores=" + scores +
                 ", ambito=" + ambito +
                 '}';

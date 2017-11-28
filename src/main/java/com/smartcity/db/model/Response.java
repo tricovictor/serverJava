@@ -1,9 +1,8 @@
 package com.smartcity.db.model;
 
-/**
- * Created by victor on 30/10/17.
- */
-public class Response {
+import java.io.Serializable;
+
+public class Response implements Serializable {
     private String response;
 
     public Response() {

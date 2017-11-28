@@ -2,6 +2,7 @@ package com.smartcity.db.model.resource;
 
 import com.smartcity.db.model.Response;
 import com.smartcity.db.model.SubAmbito;
+import com.smartcity.db.model.repository.interfaces.IAmbitos;
 import com.smartcity.db.model.repository.interfaces.ISubAmbitos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class SubAmbitosController {
     @Autowired
     ISubAmbitos iSubAmbitos;
 
+    @Autowired
+    IAmbitos iAmbitos;
+
     Response response;
 
     @GetMapping(value = "/all")
@@ -29,10 +33,10 @@ public class SubAmbitosController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
-    public ResponseEntity<Response> persist(@RequestBody SubAmbito subAmbito) {
+    public SubAmbito guardar(@RequestBody SubAmbito subAmbito) {
+        subAmbito.setAmbito(iAmbitos.findOne(1));
         iSubAmbitos.save(subAmbito);
-        response.setResponse("SubAmbito Creado correctamente");
-        return new ResponseEntity<Response>(response , HttpStatus.OK);
+        return subAmbito;
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")
@@ -62,12 +66,7 @@ public class SubAmbitosController {
 
     @GetMapping(value = "/getSubAmbitoById")
     public SubAmbito getSubAmbitoById(@PathParam("id") Integer id) {
-        try {
-            return iSubAmbitos.findOne(id);
-        } catch (Exception e)
-        {
-            return null;
-        }
+        return iSubAmbitos.findOne(id);
     }
 
     @GetMapping(value = "/getSubAmbitosByAmbito")

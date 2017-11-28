@@ -12,9 +12,9 @@ public class Department {
     private int id;
     private String name;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+/*    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
     private List<Municipality> municipalities = new ArrayList<>();
-
+*/
     public Department() {
     }
 
@@ -34,14 +34,14 @@ public class Department {
         this.name = name;
     }
 
-    public List<Municipality> getMunicipalities() {
+  /*  public List<Municipality> getMunicipalities() {
         return municipalities;
     }
 
     public void setMunicipalities(List<Municipality> municipalities) {
         this.municipalities = municipalities;
     }
-
+*/
     @Override
     public String toString() {
         return "Department{" +

@@ -22,12 +22,14 @@ public class Municipality {
     private String alcalde;
     private int superficie;
     private String website;
+    private int departmentId;
+    private int tipologyId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+   /* @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "departmentId")
     @JsonIgnore
     private Department department;
-
+*/
     public Municipality() {
     }
 
@@ -111,14 +113,30 @@ public class Municipality {
         this.website = website;
     }
 
-    public Department getDepartment() {
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public int getTipologyId() {
+        return tipologyId;
+    }
+
+    public void setTipologyId(int tipologyId) {
+        this.tipologyId = tipologyId;
+    }
+
+    /*  public Department getDepartment() {
         return department;
     }
 
     public void setDepartment(Department department) {
         this.department = department;
     }
-
+*/
 
     @Override
     public String toString() {
@@ -133,6 +151,7 @@ public class Municipality {
                 ", alcalde='" + alcalde + '\'' +
                 ", superficie=" + superficie +
                 ", website='" + website + '\'' +
+                ", departmentId=" + departmentId +
                 '}';
     }
 }

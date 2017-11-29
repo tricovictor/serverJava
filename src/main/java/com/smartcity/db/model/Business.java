@@ -16,7 +16,6 @@ public class Business {
     private String description;
     private String address;
     private String phone;
-    private String business;
 
     public Business() {
     }
@@ -61,13 +60,6 @@ public class Business {
         this.phone = phone;
     }
 
-    public String getBusiness() {
-        return business;
-    }
-
-    public void setBusiness(String business) {
-        this.business = business;
-    }
 
     @Override
     public String toString() {
@@ -77,7 +69,6 @@ public class Business {
                 ", description='" + description + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
-                ", business='" + business + '\'' +
                 '}';
     }
 }

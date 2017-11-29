@@ -2,6 +2,7 @@ package com.smartcity.db.model.resource;
 
 import com.smartcity.db.model.*;
 import com.smartcity.db.model.repository.interfaces.*;
+import org.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,12 @@ public class TipologyController {
 
     @Autowired
     ITipologyOk iTipologyOk;
+
+    @Autowired
+    ISubAmbitosBusiness iSubAmbitosBusiness;
+
+    @Autowired
+    IBusiness iBusiness;
 
 
     @GetMapping(value = "/all")
@@ -94,6 +101,8 @@ public class TipologyController {
     public List<SubAmbitoTipology> getSubAmbitoByTipologyComparative(@PathParam("id") Integer id) {
         List<Score> scoreList = iScores.findBySurveyId(id);
         List<SubAmbito> subAmbitoList = new ArrayList<>();
+        List<SubAmbitoBusiness> subAmbitoBusinessList = new ArrayList<>();
+        List<Business> businessList = new ArrayList<>();
         Tipology tipology = iTipologies.findOne(iMunicipalities.findOne(iSurveys.findOne(id).getMunicipalityId()).getTipologyId());
         String subambitos = tipology.getSubAmbitos();
         String arrayTotal[] = subambitos.split(",");
@@ -123,6 +132,15 @@ public class TipologyController {
                 }
             }
             if(iTipologyOk.findOne(1).getPercentage() > subAmbitoTipology.getScore()) {
+                subAmbitoBusinessList = new ArrayList<>();
+                subAmbitoBusinessList = iSubAmbitosBusiness.findBySubAmbitoId(subAmbito.getId());
+                businessList = new ArrayList<>();
+                for(SubAmbitoBusiness subAmbitoBusiness : subAmbitoBusinessList) {
+                    businessList.add(iBusiness.findOne(subAmbitoBusiness.getBusinessId()));
+                }
+                JSONArray business = new JSONArray();
+                business.put(businessList);
+                subAmbitoTipology.setBusinessList(business.toString());
                 subAmbitoTipologiesList.add(subAmbitoTipology);
             }
         }

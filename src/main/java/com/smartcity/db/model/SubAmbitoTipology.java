@@ -3,6 +3,7 @@ package com.smartcity.db.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.List;
 
 /**
  * Created by victor on 29/11/17.
@@ -17,6 +18,7 @@ public class SubAmbitoTipology {
     private String descriptionExtra;
     private String subAmbitos;
     private int score;
+    private String businessList;
 
     public SubAmbitoTipology() {
     }
@@ -69,6 +71,14 @@ public class SubAmbitoTipology {
         this.score = score;
     }
 
+    public String getBusinessList() {
+        return businessList;
+    }
+
+    public void setBusinessList(String businessList) {
+        this.businessList = businessList;
+    }
+
     @Override
     public String toString() {
         return "SubAmbitoTipology{" +
@@ -78,6 +88,7 @@ public class SubAmbitoTipology {
                 ", descriptionExtra='" + descriptionExtra + '\'' +
                 ", subAmbitos='" + subAmbitos + '\'' +
                 ", score=" + score +
+                ", businessList=" + businessList +
                 '}';
     }
 }

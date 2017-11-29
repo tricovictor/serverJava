@@ -1,8 +1,7 @@
 package com.smartcity.db.model.resource;
 
 import com.smartcity.db.model.*;
-import com.smartcity.db.model.repository.interfaces.ISubAmbitos;
-import com.smartcity.db.model.repository.interfaces.ITipologies;
+import com.smartcity.db.model.repository.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +25,22 @@ public class TipologyController {
 
     @Autowired
     ISubAmbitos iSubAmbitos;
+
+    @Autowired
+    IScores iScores;
+
+    @Autowired
+    IMunicipalities iMunicipalities;
+
+    @Autowired
+    ISurveys iSurveys;
+
+    @Autowired
+    ILevels iLevels;
+
+    @Autowired
+    ITipologyOk iTipologyOk;
+
 
     @GetMapping(value = "/all")
     public List<Tipology> getAll() { return iTipologies.findAll();
@@ -66,7 +81,7 @@ public class TipologyController {
     public List<SubAmbito> getSubAmbitoByTipologyById(@PathParam("id") Integer id) {
         List<SubAmbito> subAmbitoList = new ArrayList<>();
         Tipology tipology = iTipologies.findOne(id);
-String subambitos = tipology.getSubAmbitos();
+        String subambitos = tipology.getSubAmbitos();
         String arrayTotal[] = subambitos.split(",");
         for (int i = 0; i < arrayTotal.length; i++) {
             SubAmbito subAmbito = iSubAmbitos.findOne(Integer.parseInt(arrayTotal[i]));
@@ -75,5 +90,42 @@ String subambitos = tipology.getSubAmbitos();
         return subAmbitoList;
     }
 
-
+    @GetMapping(value = "/getSubAmbitosByTipologyComparative")
+    public List<SubAmbitoTipology> getSubAmbitoByTipologyComparative(@PathParam("id") Integer id) {
+        List<Score> scoreList = iScores.findBySurveyId(id);
+        List<SubAmbito> subAmbitoList = new ArrayList<>();
+        Tipology tipology = iTipologies.findOne(iMunicipalities.findOne(iSurveys.findOne(id).getMunicipalityId()).getTipologyId());
+        String subambitos = tipology.getSubAmbitos();
+        String arrayTotal[] = subambitos.split(",");
+        for (int i = 0; i < arrayTotal.length; i++) {
+            SubAmbito subAmbito = iSubAmbitos.findOne(Integer.parseInt(arrayTotal[i]));
+            subAmbitoList.add(subAmbito);
+        }
+        List<SubAmbitoTipology> subAmbitoTipologiesList = new ArrayList<>();
+        for(SubAmbito subAmbito : subAmbitoList){
+            int puntaje =0;
+            int cantPuntajes =0;
+            SubAmbitoTipology subAmbitoTipology = new SubAmbitoTipology();
+            subAmbitoTipology.setNameTipology(tipology.getName());
+            subAmbitoTipology.setSubAmbitos(subAmbito.getName());
+            subAmbitoTipology.setDescription(tipology.getDescription());
+            subAmbitoTipology.setDescriptionExtra(tipology.getDescriptionExtra());
+            for (Score score : scoreList) {
+                if (score.getSubAmbito().getId() == subAmbito.getId() ) {
+                    if(score.getLevelId() !=0 && iLevels.findOne(score.getLevelId()).getValue() !=0){
+                        int cantLevels = iLevels.findByDegreeId(score.getDegree().getId()).size();
+                        puntaje += 100/cantLevels*iLevels.findOne(score.getLevelId()).getValue();
+                        cantPuntajes++;
+                    } else {
+                        cantPuntajes++;
+                    }
+                    subAmbitoTipology.setScore(puntaje/cantPuntajes);
+                }
+            }
+            if(iTipologyOk.findOne(1).getPercentage() > subAmbitoTipology.getScore()) {
+                subAmbitoTipologiesList.add(subAmbitoTipology);
+            }
+        }
+        return subAmbitoTipologiesList ;
+    }
 }

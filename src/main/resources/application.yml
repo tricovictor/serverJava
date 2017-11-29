@@ -3,7 +3,7 @@ spring:
     driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://179.27.153.3/prueban6_smartcity
     username: prueban6_usuario
-    password: bf2gxuJBpewS
+    password: 1ClHVG7J4vr1
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true

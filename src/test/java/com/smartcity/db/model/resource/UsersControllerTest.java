@@ -6,8 +6,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class UsersControllerTest {
+    private UsersController usersController;
     @Before
     public void setUp() throws Exception {
+        this.usersController = new UsersController();
     }
 
     @Test

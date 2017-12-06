@@ -86,10 +86,11 @@ public class UsersController {
         boolean log = iUsers.existsByEmailAndPassword(user.getEmail(), user.getPassword());
         if(!log) {
             response.setResponse("Datos incorrectos");
-            return new ResponseEntity<Response>(response , HttpStatus.OK);
+            return new ResponseEntity<Response>(response , HttpStatus.NOT_FOUND);
         } else {
             response.setResponse("Login correcto");
-            return new ResponseEntity<User>(iUsers.findByEmail(user.getEmail()),HttpStatus.OK);
+            //return new ResponseEntity<User>(iUsers.findByEmail(user.getEmail()),HttpStatus.OK);
+            return new ResponseEntity<Response>(response,HttpStatus.OK);
         }
     }
 

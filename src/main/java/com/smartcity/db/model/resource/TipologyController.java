@@ -138,9 +138,7 @@ public class TipologyController {
                 for(SubAmbitoBusiness subAmbitoBusiness : subAmbitoBusinessList) {
                     businessList.add(iBusiness.findOne(subAmbitoBusiness.getBusinessId()));
                 }
-                JSONArray business = new JSONArray();
-                business.put(businessList);
-                subAmbitoTipology.setBusinessList(business.toString());
+                subAmbitoTipology.setBusinessList(businessList);
                 subAmbitoTipologiesList.add(subAmbitoTipology);
             }
         }

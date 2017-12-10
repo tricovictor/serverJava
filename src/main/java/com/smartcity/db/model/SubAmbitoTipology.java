@@ -8,17 +8,14 @@ import java.util.List;
 /**
  * Created by victor on 29/11/17.
  */
-@Entity
 public class SubAmbitoTipology {
-    @Id
-    @GeneratedValue
     private int id;
     private String nameTipology;
     private String description;
     private String descriptionExtra;
     private String subAmbitos;
     private int score;
-    private String businessList;
+    private List<Business> businessList;
 
     public SubAmbitoTipology() {
     }
@@ -71,11 +68,11 @@ public class SubAmbitoTipology {
         this.score = score;
     }
 
-    public String getBusinessList() {
+    public List<Business> getBusinessList() {
         return businessList;
     }
 
-    public void setBusinessList(String businessList) {
+    public void setBusinessList(List<Business> businessList) {
         this.businessList = businessList;
     }
 

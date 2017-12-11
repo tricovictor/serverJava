@@ -13,6 +13,7 @@ public class Graphic {
     private String  labels;
     private String data;
     private Integer groupId;
+    private Integer surveyId;
 
     public Graphic() {
     }
@@ -55,6 +56,14 @@ public class Graphic {
 
     public void setGroupId(Integer groupId) {
         this.groupId = groupId;
+    }
+
+    public Integer getSurveyId() {
+        return surveyId;
+    }
+
+    public void setSurveyId(Integer surveyId) {
+        this.surveyId = surveyId;
     }
 
     @Override

@@ -14,6 +14,7 @@ public class GraphicGroupAux {
     private String name;
     private String labels;
     private String data;
+    private int surveyId;
 
 
     public GraphicGroupAux() {
@@ -57,6 +58,14 @@ public class GraphicGroupAux {
 
     public void setLabels(String labels) {
         this.labels = labels;
+    }
+
+    public int getSurveyId() {
+        return surveyId;
+    }
+
+    public void setSurveyId(int surveyId) {
+        this.surveyId = surveyId;
     }
 
     @Override

@@ -4,6 +4,8 @@ package com.smartcity.db.model.resource;
 import com.smartcity.db.model.*;
 import com.smartcity.db.model.repository.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.*;
@@ -32,6 +34,9 @@ public class SurveysController {
     IScores iScores;
 
     Response response;
+
+    GraphicsController graphicsController = new GraphicsController();
+
 
     @PersistenceContext
     EntityManager em;
@@ -90,6 +95,20 @@ public class SurveysController {
         return survey;
     }
 
+    @GetMapping(value = "/validateSurvey")
+    public ResponseEntity<Response> validateSurvey(@PathParam("id") Integer id) {
+        List<Score> scores = iScores.findBySurveyIdAndLevelId(id, 0);
+        if(scores.size() > 0){
+            Response response = new Response();
+            response.setResponse("Encuesta Incompleta");
+            return new ResponseEntity<Response>(response , HttpStatus.OK);
 
-}
+        }
+        Response response = new Response();
+        response.setResponse("");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
+    }
+
+
+    }
 

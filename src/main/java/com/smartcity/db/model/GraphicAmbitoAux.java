@@ -14,6 +14,7 @@ public class GraphicAmbitoAux {
     private String name;
     private String labels;
     private String data;
+    private int surveyId;
 
     public GraphicAmbitoAux() {
     }
@@ -48,5 +49,13 @@ public class GraphicAmbitoAux {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public int getSurveyId() {
+        return surveyId;
+    }
+
+    public void setSurveyId(int surveyId) {
+        this.surveyId = surveyId;
     }
 }

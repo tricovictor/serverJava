@@ -1,9 +1,7 @@
 package com.smartcity.db.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.security.Timestamp;
 
 @Entity
 public class Score {

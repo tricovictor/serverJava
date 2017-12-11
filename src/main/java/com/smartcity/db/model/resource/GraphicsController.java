@@ -54,10 +54,10 @@ public class GraphicsController {
         return iGroups.findAll();
     }
 
-    @GetMapping(value = "/getGraphics")
+    @GetMapping(value = "/generateGraphics")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Graphic> getGraphics(@PathParam("id") Integer id) {
-        resetAux();
+    public List<Graphic> generateGraphics(@PathParam("id") Integer id) {
+        //resetAux();
         List<Score> scoreList = iScores.findBySurveyId(id);
         JSONArray labels = new JSONArray();
         JSONArray data = new JSONArray();
@@ -80,6 +80,7 @@ public class GraphicsController {
                     graphic.setName(iSubAmbitos.findOne(score.getSubAmbito().getId()).getName());
                     graphic.setGroupId(iSubAmbitos.findOne(score.getSubAmbito().getId()).getGroupId());
                     graphic.setLabels(labels.toString());
+                    graphic.setSurveyId(id);
                     iGraphics.save(graphic);
                     labels = new JSONArray();
                     data = new JSONArray();
@@ -93,28 +94,17 @@ public class GraphicsController {
         return iGraphics.findAll();
     }
 
-   @GetMapping(value = "/getGraphicsGroup")
+   @GetMapping(value = "/generateGraphicsGroup")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<GraphicGroupAux> getGraphicsGroup() {
+    public List<GraphicGroupAux> generateGraphicsGroup(@PathParam("id") Integer id) {
         List<GraphGroup> graphicGroupList = iGroups.findAll();
         List<Graphic> graphicsList = iGraphics.findAll();
-        Collections.sort(graphicsList, new Comparator<Graphic>() {
-            @Override
-            public int compare(Graphic graphic, Graphic t1) {
-                return graphic.getGroupId().compareTo(t1.getGroupId());
-            }
-
-            @Override
-            public boolean equals(Object o) {
-                return false;
-            }
-        });
         JSONArray labels = new JSONArray();
         JSONArray data = new JSONArray();
         try {
             for(GraphGroup graphGroup : graphicGroupList) {
                 for (Graphic graph : graphicsList) {
-                    if (graph.getGroupId().equals(graphGroup.getId())) {
+                    if (graph.getGroupId().equals(graphGroup.getId()) && graph.getSurveyId().equals(id) ) {
                         labels.put(graph.getName());
                         Integer total = 0;
                         String arrayTotal[] = graph.getData().substring(1, graph.getData().length() - 1).split(",");
@@ -129,19 +119,20 @@ public class GraphicsController {
                 graphic.setName(graphGroup.getName());
                 graphic.setLabels(labels.toString());
                 graphic.setData(data.toString());
+                graphic.setSurveyId(id);
                 iGraphicsGroupAux.save(graphic);
                 labels = new JSONArray();
                 data = new JSONArray();
             }
         } catch (Exception e) {
-            return null;
+            System.out.print(e.toString());
         }
         return iGraphicsGroupAux.findAll();
     }
 
-    @GetMapping(value = "/getGraphicsAmbitos")
+    @GetMapping(value = "/generateGraphicsAmbitos")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<GraphicAmbitoAux> getGraphicsAmbitos() {
+    public List<GraphicAmbitoAux> generateGraphicsAmbitos(@PathParam("id") Integer id) {
         List<Ambito> ambitoList = iAmbitos.findAll();
         List<GraphGroup> graphicGroupList = iGroups.findAll();
         JSONArray labels = new JSONArray();
@@ -150,7 +141,7 @@ public class GraphicsController {
             for(Ambito ambito : ambitoList) {
                 for (GraphGroup graphGroup : graphicGroupList) {
                     if (graphGroup.getAmbitoId().equals(ambito.getId())) {
-                            GraphicGroupAux graphicGroupAux = iGraphicsGroupAux.findByGroupId(graphGroup.getId());
+                            GraphicGroupAux graphicGroupAux = iGraphicsGroupAux.findByGroupIdAndSurveyId(graphGroup.getId(),id);
                             labels.put(graphicGroupAux.getName());
                             Integer total = 0;
                             String arrayTotal[] = graphicGroupAux.getData().substring(1, graphicGroupAux.getData().length() - 1).split(",");
@@ -164,6 +155,7 @@ public class GraphicsController {
                 graphic.setName(ambito.getName());
                 graphic.setLabels(labels.toString());
                 graphic.setData(data.toString());
+                graphic.setSurveyId(id);
                 iGraphicAmbitoAux.save(graphic);
                 labels = new JSONArray();
                 data = new JSONArray();
@@ -177,6 +169,24 @@ public class GraphicsController {
         iGraphics.deleteAll();
         iGraphicsGroupAux.deleteAll();
         iGraphicAmbitoAux.deleteAll();
+    }
+
+    @GetMapping(value = "/getGraphics")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Graphic> getGraphics(@PathParam("id") Integer id) {
+        return iGraphics.findBySurveyId(id);
+    }
+
+    @GetMapping(value = "/getGraphicsGroup")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<GraphicGroupAux> getGraphicsGroup(@PathParam("id") Integer id) {
+        return iGraphicsGroupAux.findBySurveyId(id);
+    }
+
+    @GetMapping(value = "/getGraphicsAmbitos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<GraphicAmbitoAux> getGraphicsAmbitos(@PathParam("id") Integer id) {
+        return iGraphicAmbitoAux.findBySurveyId(id);
     }
 
 }

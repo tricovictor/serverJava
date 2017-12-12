@@ -144,4 +144,19 @@ public class TipologyController {
         }
         return subAmbitoTipologiesList ;
     }
+
+    @GetMapping(value = "/getPuntaje")
+    public Integer getPuntaje() { return iTipologyOk.findOne(1).getPercentage();
+    }
+
+    @GetMapping(value = "/setPuntaje")
+    public ResponseEntity<Response> setPuntaje(@PathParam("id") Integer id) {
+        TipologyOk tipologyOk = iTipologyOk.findOne(1);
+        tipologyOk.setPercentage(id);
+        iTipologyOk.save(tipologyOk);
+        Response response = new Response();
+        response.setResponse("Porcentaje modificado");
+        return new ResponseEntity<Response>(response , HttpStatus.OK);
+    }
+
 }

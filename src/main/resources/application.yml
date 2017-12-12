@@ -1,9 +1,9 @@
 spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost/smartcity
+    url: jdbc:mysql://localhost:3306/smartcity
     username: root
-    password: 1tvictor
+    password: root
   jpa:
     hibernate.ddl-auto: update
     generate-ddl: true

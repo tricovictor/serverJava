@@ -104,5 +104,17 @@ public class UsersController {
             return new ResponseEntity<User>(iUsers.findByEmail(user.getEmail()),HttpStatus.OK);
         }
     }
+    @RequestMapping(method = RequestMethod.POST, value = "/getLoginApp")
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseEntity<?> getLoginApp(@RequestBody User user) {
+        boolean log = iUsers.existsByEmailAndPassword(user.getEmail(), user.getPassword());
+        if(!log) {
+            response.setResponse("ERROR");
+            return new ResponseEntity<Response>(response,HttpStatus.NOT_FOUND);
+        } else {
+            response.setResponse("OK");
+            return new ResponseEntity<Response>(response,HttpStatus.OK);
+        }
+    }
 
 }

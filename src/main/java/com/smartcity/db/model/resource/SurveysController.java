@@ -69,6 +69,9 @@ public class SurveysController {
             for (SubAmbitoTypeLevel subAmbitoTypeLevel : subAmbitoTypeLevelList ) {
                 List<Degree> degreeList = iDegrees.findByTypeLevelId(subAmbitoTypeLevel.getTypeLevelId());
                 for (Degree degree : degreeList) {
+                    Date date = new Date();
+                    survey.setInitialdate(date);
+                    survey.setFinaldate(date);
                     Score score = new Score();
                     score.setSurvey(survey);
                     score.setLevelId(0);

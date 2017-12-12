@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface ISubAmbitosBusiness extends JpaRepository<SubAmbitoBusiness, Integer> {
     List<SubAmbitoBusiness> findBySubAmbitoId(Integer subambito);
+    List<SubAmbitoBusiness> findByBusinessId(Integer id);
 }

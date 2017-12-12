@@ -2,7 +2,9 @@ package com.smartcity.db.model.resource;
 
 import com.smartcity.db.model.Business;
 import com.smartcity.db.model.Response;
+import com.smartcity.db.model.SubAmbitoBusiness;
 import com.smartcity.db.model.repository.interfaces.IBusiness;
+import com.smartcity.db.model.repository.interfaces.ISubAmbitosBusiness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +14,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +27,9 @@ public class BusinessController {
 
     @Autowired
     IBusiness iBusiness;
+
+    @Autowired
+    ISubAmbitosBusiness iSubAmbitosBusiness;
 
     Response response = new Response();
 
@@ -63,8 +67,20 @@ public class BusinessController {
     @GetMapping(value = "/updateSubAmbitos")
     @Produces(MediaType.APPLICATION_JSON)
     public ResponseEntity<Response> updateBusinessSubAmbitos(@PathParam("id") Integer id,
-                                                             @PathParam("subambitos") ArrayList subambitos) {
-        response.setResponse(subambitos.toString());
+                                                             @PathParam("subambitos") String subambitos) {
+
+        List<SubAmbitoBusiness> subAmbitoBusinessList = iSubAmbitosBusiness.findByBusinessId(id);
+        iSubAmbitosBusiness.delete(subAmbitoBusinessList);
+        String arrayTotal[] = subambitos.split(",");
+        for (int i = 0; i < arrayTotal.length; i++) {
+            SubAmbitoBusiness subAmbitoBusiness = new SubAmbitoBusiness();
+            subAmbitoBusiness.setSubAmbitoId(Integer.parseInt(arrayTotal[i]));
+            subAmbitoBusiness.setBusinessId(id);
+            iSubAmbitosBusiness.save(subAmbitoBusiness);
+        }
+
+
+        response.setResponse(subambitos);
         return new ResponseEntity<Response>(response , HttpStatus.OK);
 
     }

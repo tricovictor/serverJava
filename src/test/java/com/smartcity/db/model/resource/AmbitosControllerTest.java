@@ -28,8 +28,8 @@ public class AmbitosControllerTest {
     @Test
     public void getAll() throws Exception {
         try{
-            List<Ambito> lstAmbitos = null;
-            lstAmbitos = iAmbitos.findAll();
+            //List<Ambito> lstAmbitos = null;
+            //lstAmbitos = iAmbitos.findAll();
 
           //  assertEquals(expected, actual, 0.000);
 

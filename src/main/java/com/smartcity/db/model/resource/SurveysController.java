@@ -90,6 +90,11 @@ public class SurveysController {
         return iSurveys.findByMunicipalityIdAndState(id, "activa");
     }
 
+    @GetMapping(value = "/getSurveyInactiva")
+    private List<Survey> getSurveyInactiva() {
+        return iSurveys.findByState("inactiva");
+    }
+
     @GetMapping(value = "/closeSurvey")
     public Survey closeSurvey(@PathParam("id") Integer id) {
         Survey survey = iSurveys.findOne(id);

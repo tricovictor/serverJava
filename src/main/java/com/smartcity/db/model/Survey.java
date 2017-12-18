@@ -19,12 +19,21 @@ public class Survey {
     private String state;
     private int userId;
     private int municipalityId;
+    private String municipality;
 
     @OneToMany(mappedBy = "survey", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Score> scores = new ArrayList<>();
 
     public Survey() {
+    }
+
+    public String getMunicipality() {
+        return municipality;
+    }
+
+    public void setMunicipality(String municipality) {
+        this.municipality = municipality;
     }
 
     public int getId() {

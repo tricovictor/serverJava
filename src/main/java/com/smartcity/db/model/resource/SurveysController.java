@@ -33,6 +33,9 @@ public class SurveysController {
     @Autowired
     IScores iScores;
 
+    @Autowired
+    IMunicipalities iMunicipalities;
+
     Response response;
 
     GraphicsController graphicsController = new GraphicsController();
@@ -56,6 +59,7 @@ public class SurveysController {
         surveys.setInitialdate(date);
         surveys.setFinaldate(date);
         surveys.setState("activa");
+        surveys.setMunicipality(iMunicipalities.findOne(surveys.getMunicipalityId()).getName());
         iSurveys.save(surveys);
         addSurvey(surveys);
         return surveys;

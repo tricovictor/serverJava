@@ -34,9 +34,15 @@ public class UsersController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
     public ResponseEntity<Response> persist(@RequestBody User user) {
-        iUsers.save(user);
-        response.setResponse("Usuario Creado correctamente");
-        return new ResponseEntity<Response>(response , HttpStatus.OK);
+        try{
+            iUsers.save(user);
+            response.setResponse("Usuario Creado correctamente");
+            return new ResponseEntity<Response>(response , HttpStatus.OK);
+
+        } catch (Exception e) {
+            response.setResponse("");
+            return new ResponseEntity<Response>(response , HttpStatus.OK);
+        }
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")

@@ -1,8 +1,10 @@
 package com.smartcity.db.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by victor on 29/11/17.
@@ -12,9 +14,18 @@ public class Business {
     @Id
     @GeneratedValue
     private int id;
+
+    @NotNull
+    @Column(unique = true)
     private String name;
+
+    @NotNull
     private String description;
+
+    @NotNull
     private String address;
+
+    @NotNull
     private String phone;
 
     public Business() {

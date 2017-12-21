@@ -3,6 +3,7 @@ package com.smartcity.db.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.security.Timestamp;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -13,16 +14,36 @@ public class Municipality {
     @Id
     @GeneratedValue
     private int id;
+
+    @NotNull(message = "")
     private String name;
+
+    @NotNull(message = "")
     private String idioms;
+
     private Double latitude;
+
     private Double longitude;
+
+    @NotNull
     private int habitants;
+
+    @NotNull
     private String intendent;
+
+    @NotNull
     private String alcalde;
+
+    @NotNull
     private int superficie;
+
+    @NotNull
     private String website;
+
+    @NotNull
     private int departmentId;
+
+    @NotNull
     private int tipologyId;
 
    /* @ManyToOne(fetch = FetchType.LAZY)

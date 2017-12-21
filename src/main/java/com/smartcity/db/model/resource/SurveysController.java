@@ -51,7 +51,7 @@ public class SurveysController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
     public Survey persist(@RequestBody Survey surveys) {
-        if(iSurveys.existsByMunicipalityIdAndUserId(surveys.getMunicipalityId(), surveys.getUserId()))
+        if(iSurveys.existsByMunicipalityIdAndState(surveys.getMunicipalityId(), "activa"))
         {
             return null;
         }

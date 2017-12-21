@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ISurveys extends JpaRepository<Survey, Integer> {
 
-    boolean existsByMunicipalityIdAndUserId(Integer municipalityId, Integer userId);
+    boolean existsByMunicipalityIdAndState(Integer municipalityId, String state);
     Survey findByMunicipalityIdAndState(Integer municipalityId, String state);
     List<Survey> findByState(String state);
 }

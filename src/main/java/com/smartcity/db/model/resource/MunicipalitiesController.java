@@ -22,6 +22,7 @@ public class MunicipalitiesController implements Serializable {
     @Autowired
     IMunicipalities iMunicipalities;
 
+    Response response = new Response();
 
     @GetMapping(value = "/all")
     public List<Municipality> getAll() { return iMunicipalities.findAll();
@@ -29,10 +30,15 @@ public class MunicipalitiesController implements Serializable {
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
     public ResponseEntity<Response> persist(@RequestBody Municipality municipality) {
+        try {
         iMunicipalities.save(municipality);
-        Response response = new Response();
-        response.setResponse("Municipio Creado correctamente");
+        response.setResponse("OK");
         return new ResponseEntity<Response>(response , HttpStatus.OK);
+        } catch (Exception e) {
+            response.setResponse("Datos incorrectos");
+            return new ResponseEntity<Response>(response , HttpStatus.OK);
+        }
+
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")

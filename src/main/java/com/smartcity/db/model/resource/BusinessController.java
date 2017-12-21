@@ -41,9 +41,14 @@ public class BusinessController {
 
     @RequestMapping(method = RequestMethod.POST, value = "/add")
     public ResponseEntity<Response> persist(@RequestBody Business business) {
-        iBusiness.save(business);
-        response.setResponse("Empresa creada");
-        return new ResponseEntity<Response>(response , HttpStatus.OK);
+        try {
+            iBusiness.save(business);
+            response.setResponse("OK");
+            return new ResponseEntity<Response>(response , HttpStatus.OK);
+        } catch (Exception e) {
+            response.setResponse("");
+            return new ResponseEntity<Response>(response , HttpStatus.OK);
+        }
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/update")

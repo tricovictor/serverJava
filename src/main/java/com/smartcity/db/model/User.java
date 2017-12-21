@@ -3,6 +3,7 @@ package com.smartcity.db.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,12 +13,27 @@ public class User {
     @Id
     @GeneratedValue
     private Integer id;
+
+    @NotNull
     private String name;
+
+    @NotNull
     private String lastname;
+
+    @NotNull
+    @Column(unique = true)
     private String email;
+
+    @NotNull
     private String password;
+
+    @NotNull
     private String type;
+
+    @NotNull
     private String phone;
+
+    @NotNull
     private boolean state;
 
     public User() {

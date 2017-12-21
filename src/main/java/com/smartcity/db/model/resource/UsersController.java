@@ -36,7 +36,7 @@ public class UsersController {
     public ResponseEntity<Response> persist(@RequestBody User user) {
         try{
             iUsers.save(user);
-            response.setResponse("Usuario Creado correctamente");
+            response.setResponse("OK");
             return new ResponseEntity<Response>(response , HttpStatus.OK);
 
         } catch (Exception e) {
